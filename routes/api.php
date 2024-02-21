@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::name('api.')->group(function(){
+    Route::get('/portfolios', [ProjectController::class, 'index'])->name('portfolios.index');
+    Route::get('/portfolios/search', [ProjectController::class, 'search'])->name('portfolios.search');
+    Route::get('/portfolios/{portfolio}', [ProjectController::class, 'show'])->name('portfolios.show');
 });
